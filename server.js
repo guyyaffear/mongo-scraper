@@ -22,11 +22,18 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-//connecting to MongoDB
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+// Mongo y Mongoose
+
+//connecting to mongoos
 mongoose.connect("mongodb://localhost/scraped_news");
 const MONGODB_URI =
  process.env.MONGODB_URI || "mongodb://localhost/scraper_news";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+ mongoose.connect(MONGODB_URI, {useUnifiedTopology: true });
+// mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));

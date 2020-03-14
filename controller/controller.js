@@ -1,18 +1,23 @@
+// read: /api/articles
+// create: /api/articles
+// delete: /api/articles
+// delete: /api/articles/:id
+
+
+
 var express = require("express");
 var router = express.Router();
 var path = require("path");
-
 var request = require("request");
 var cheerio = require("cheerio");
-
 var Comment = require("../models/Comment.js");
 var Article = require("../models/Article.js");
 
 router.get("/", function(req, res) {
-  res.redirect("/articles");
+  res.redirect("/api/articles");
 });
 
-router.get("/scrape", function(req, res) {
+router.get("/api/scrape", function(req, res) {
   request("https://www.foxnews.com/", function(error, response, html) {
     var $ = cheerio.load(html);
     var titlesArray = [];
@@ -56,7 +61,7 @@ router.get("/scrape", function(req, res) {
     res.redirect("/");
   });
 });
-router.get("/articles", function(req, res) {
+router.get("/api/articles", function(req, res) {
   Article.find()
     .sort({ _id: -1 })
     .exec(function(err, doc) {
@@ -64,8 +69,8 @@ router.get("/articles", function(req, res) {
         console.log(err);
       } else {
         var artcl = { article: doc };
-        console.log(doc[0].title);
-        console.log(doc[0]._id);
+        // console.log(doc[0].title);
+        // console.log(doc[0]._id);
         // console.log('ARTICLES', artcl);
         
         res.render("index", artcl);
@@ -73,7 +78,7 @@ router.get("/articles", function(req, res) {
     });
 });
 
-router.get("/articles-json", function(req, res) {
+router.get("/api/articles-json", function(req, res) {
   Article.find({}, function(err, doc) {
     if (err) {
       console.log(err);
@@ -83,7 +88,7 @@ router.get("/articles-json", function(req, res) {
   });
 });
 
-router.get("/clearAll", function(req, res) {
+router.get("/api/clearAll", function(req, res) {
   Article.remove({}, function(err, doc) {
     if (err) {
       console.log(err);
@@ -94,7 +99,8 @@ router.get("/clearAll", function(req, res) {
   res.redirect("/articles-json");
 });
 
-router.get("/readArticle/:id", function(req, res) {
+router.get("/api/readArticle/:id", function(req, res) {
+  console.log("i am here in this API");
   var articleId = req.params.id;
   var hbsObj = {
     article: [],
@@ -127,7 +133,7 @@ console.log('GETTING ARTICLE')
       }
     });
 });
-router.post("/comment/:id", function(req, res) {
+router.post("/api/comment/:id", function(req, res) {
   var user = req.body.name;
   var content = req.body.comment;
   var articleId = req.params.id;
@@ -154,7 +160,7 @@ router.post("/comment/:id", function(req, res) {
         if (err) {
           console.log(err);
         } else {
-          res.redirect("/readArticle/" + articleId);
+          res.redirect("/api/readArticle/" + articleId);
         }
       });
     }
