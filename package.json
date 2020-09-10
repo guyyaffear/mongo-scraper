@@ -27,6 +27,10 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "handlebars": "^4.7.6"
+=======
+    "handlebars": "^4.5.3"
+>>>>>>> 42257fe16b7c7d5e5128af83ba855750f8279b02
   }
 }
