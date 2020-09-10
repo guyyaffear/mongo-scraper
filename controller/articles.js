@@ -15,7 +15,7 @@ router.get("/api/articles", function(req, res) {
           var artcl = { article: doc };
           console.log(doc[0].title);
           console.log(doc[0]._id);
-          // console.log('ARTICLES', artcl);
+          console.log('ARTICLES', artcl);
           
           res.render("index", artcl);
         }

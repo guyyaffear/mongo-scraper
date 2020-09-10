@@ -10,8 +10,9 @@
     <div class="col s8 left-align">
         {{#each article}}
         <div class="card-panel" data-this={{this}} data-title={{title}} data-this-title={{this.title}}>
+            <div data-this={{this}} data-title={{title}} data-this-title={{this.title}}>Title</div>
             <h4>{{this.title}}</h4>
-            <a href="/api/readArticle/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Read Article</a>
+            <a href="/api/readArticles/{{this._id}}" class="waves-effect waves-light btn" id="btnSignUp">Read Article</a>
 
         </div>
 
